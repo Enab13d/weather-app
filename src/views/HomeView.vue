@@ -28,6 +28,14 @@
         </template>
       </ul>
     </div>
+    <div class="flex flex-col gap-4">
+      <Suspense>
+        <CityList/>
+        <template #fallback>
+Loading...
+        </template>
+      </Suspense>
+    </div>
   </main>
 </template>
 
@@ -35,6 +43,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import CityList from "@/components/CityList.vue";
 const router = useRouter();
 const searchQuery = ref("");
 const queryTimeout = ref(null);
@@ -68,8 +77,6 @@ const getSearchResults = () => {
 const previewCity = (searchResult) => {
 
   const [city, state] = searchResult.properties.full_address.split(",");
-  console.log(city);
-  console.log(state);
   router.push({
     name: "cityView",
     params: { state: state.trim(), city: city },
@@ -80,4 +87,6 @@ const previewCity = (searchResult) => {
     },
   });
 };
+
+
 </script>

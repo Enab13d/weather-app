@@ -10,6 +10,5 @@
 </template>
 
 <script setup>
-import { Suspense } from "vue";
 import AsyncCityView from "./AsyncCityView.vue";
 </script>
