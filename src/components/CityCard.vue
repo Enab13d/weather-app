@@ -1,6 +1,5 @@
 <template>
   <div
-  @click="goToCityView(city)"
     class="flex py-6 px-3 bg-weather-secondary rounded-md shadow-md cursor-pointer"
   >
     <div class="flex flex-col flex-1">
@@ -26,25 +25,10 @@
 </template>
 
 <script setup>
-import router from '@/router';
 defineProps({
   city: {
     type: Object,
     default: {},
   },
 });
-
-const goToCityView = (city) => {
-    router.push({
-        name: 'cityView',
-        params: {
-            state: city.state,
-            city: city.city
-        },
-        query: {
-            lat: city.coords.lat,
-            lng: city.coords.lng
-        }
-    })
-}
 </script>

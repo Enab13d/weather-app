@@ -14,9 +14,9 @@
           @click="toggleModal"
           class="fa-solid fa-circle-info text-2xl hover:text-weather-secondary duration-150 cursor-pointer"
         ></i>
-        <i 
-        v-if="route.query.preview"
-        @click="addCity"
+        <i
+          v-if="route.query.preview"
+          @click="addCity"
           class="fa-solid fa-plus text-2xl hover:text-weather-secondary duration-150 cursor-pointer"
         ></i>
       </div>
@@ -59,9 +59,9 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 import { uid } from "uid";
 import BaseModal from "./BaseModal.vue";
-const savedCities = ref([])
-const route = useRoute()
-const router = useRouter()
+const savedCities = ref([]);
+const route = useRoute();
+const router = useRouter();
 const modalActive = ref(false);
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
@@ -69,8 +69,8 @@ const toggleModal = () => {
 const closeModal = () => (modalActive.value = false);
 
 const addCity = () => {
-  if(localStorage.getItem('savedCities')) {
-    savedCities.value = JSON.parse(localStorage.getItem('savedCities'));
+  if (localStorage.getItem("savedCities")) {
+    savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
   }
   const locationObj = {
     id: uid(),
@@ -78,14 +78,15 @@ const addCity = () => {
     city: route.params.city,
     coords: {
       lat: route.query.lat,
-      lng: route.query.lng
-    }
-
-  }
-  savedCities.value.push(locationObj)
-  localStorage.setItem('savedCities', JSON.stringify(savedCities.value))
-  let query = Object.assign({}, route.query)
+      lng: route.query.lng,
+    },
+  };
+  savedCities.value.push(locationObj);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+  let query = Object.assign({}, route.query);
   delete query.preview;
-  router.replace(query)
+  query.id = locationObj.id;
+
+  router.replace({query});
 };
 </script>

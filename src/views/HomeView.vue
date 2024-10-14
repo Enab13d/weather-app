@@ -30,9 +30,9 @@
     </div>
     <div class="flex flex-col gap-4">
       <Suspense>
-        <CityList/>
-        <template #fallback>
-Loading...
+        <CityList />
+        <template #fallback> 
+          <CityCardSceleton/>
         </template>
       </Suspense>
     </div>
@@ -44,6 +44,7 @@ import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import CityList from "@/components/CityList.vue";
+import CityCardSceleton from "@/components/CityCardSceleton.vue";
 const router = useRouter();
 const searchQuery = ref("");
 const queryTimeout = ref(null);
@@ -75,7 +76,6 @@ const getSearchResults = () => {
   }, 300);
 };
 const previewCity = (searchResult) => {
-
   const [city, state] = searchResult.properties.full_address.split(",");
   router.push({
     name: "cityView",
@@ -87,6 +87,4 @@ const previewCity = (searchResult) => {
     },
   });
 };
-
-
 </script>
